@@ -8,15 +8,59 @@
 <style>
   body {
     margin: 0;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
     font-family: Arial, sans-serif;
     background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+    position: relative;
   }
 
+  /* SCATTERED PHOTOS */
+  .photo {
+  position: absolute;
+  width: 95px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+  transform: rotate(var(--rotate));
+  z-index: 1;
+  opacity: 0.95;
+  transition: transform 0.3s ease, z-index 0.3s;
+}
+.photo:hover {
+  transform: scale(1.08) rotate(0deg);
+  z-index: 5;
+}
+.photo-hint {
+  margin-top: 16px;
+  font-size: 14px;
+  color: #f8cdda;
+  opacity: 0.9;
+  animation: floatHint 2.5s ease-in-out infinite;
+}
+
+@keyframes floatHint {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+  100% { transform: translateY(0); }
+}
+
+@media (min-width: 768px) {
+  .photo {
+    width: 150px;
+  }
+}
+
+
+  @media (min-width: 768px) {
+    .photo {
+      width: 160px;
+    }
+  }
+
+  /* MAIN CARD */
   .card {
+    position: relative;
+    z-index: 2;
     background: white;
     padding: 35px;
     border-radius: 20px;
@@ -24,11 +68,11 @@
     width: 90%;
     max-width: 420px;
     text-align: center;
+    margin: 120px auto;
   }
 
   h1 {
     color: #e63946;
-    margin-bottom: 15px;
   }
 
   p {
@@ -51,11 +95,48 @@
 
 <body>
 
+<!-- 🎶 BACKGROUND MUSIC -->
+<audio id="music" loop>
+  <source src="A_Couple_Minutes.mp3" type="audio/mpeg">
+</audio>
+
+<!-- 📸 SCATTERED PHOTOS (13) -->
+<!-- TOP LEFT -->
+<img src="photos/photo1.jpg" class="photo" style="top:-50px; left:20px; --rotate:-8deg;">
+<img src="photos/photo2.jpg" class="photo" style="top:100px; left:10px; --rotate:6deg;">
+
+<!-- TOP RIGHT -->
+<img src="photos/photo3.jpg" class="photo" style="top:-50px; right:20px; --rotate:7deg;">
+<img src="photos/photo4.jpg" class="photo" style="top:130px; right:10px; --rotate:-6deg;">
+
+<!-- MID LEFT -->
+<img src="photos/photo5.jpg" class="photo" style="top:450px; left:5px; --rotate:10deg;">
+<img src="photos/photo6.jpg" class="photo" style="top:700px; left:25px; --rotate:-7deg;">
+
+<!-- MID RIGHT -->
+<img src="photos/photo7.jpg" class="photo" style="top:430px; right:5px; --rotate:-9deg;">
+<img src="photos/photo8.jpg" class="photo" style="top:580px; right:25px; --rotate:8deg;">
+
+<!-- BOTTOM LEFT -->
+<img src="photos/photo9.jpg" class="photo" style="bottom:140px; left:20px; --rotate:6deg;">
+<img src="photos/photo10.jpg" class="photo" style="bottom:-110px; left:50px; --rotate:-8deg;">
+
+<!-- BOTTOM RIGHT -->
+<img src="photos/photo11.jpg" class="photo" style="bottom:200px; right:20px; --rotate:-6deg;">
+<img src="photos/photo12.jpg" class="photo" style="bottom:30px; right:60px; --rotate:9deg;">
+
+<!-- ACCENT PHOTO (CENTER BOTTOM, FAR) -->
+<img src="photos/photo13.jpg" class="photo" style="bottom:-20px; left:50%; transform: translateX(-50%) rotate(5deg);">
+
+<!-- 💖 DATE CARD -->
+
 <div class="card">
+<p class="photo-hint">💗 Tap or hover the photos :) 💗</p>
+
   <h1>It’s a Date 💘</h1>
 
   <p>📅 <strong>February 14</strong></p>
-  <p>⏰ <strong>12:00 PM</strong></p>
+  <p>⏰ <strong>7:00 PM</strong></p>
   <p>📍 <strong>The Rustic Bistro</strong></p>
   <p>Liliw, Laguna</p>
 
@@ -63,8 +144,15 @@
     Open in Google Maps 🗺️
   </a>
 
-  <p style="margin-top:18px;">I can’t wait to see you, Baby! hehe ❤️</p>
+  <p style="margin-top:18px;">I can’t wait to see you ❤️</p>
 </div>
+
+<script>
+  const music = document.getElementById("music");
+  music.play().catch(() => {
+    document.body.addEventListener("click", () => music.play(), { once: true });
+  });
+</script>
 
 </body>
 </html>
